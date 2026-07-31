@@ -83,6 +83,13 @@ h1,h2,h3{letter-spacing:-.02em}
 
 .section-py{padding-top:88px;padding-bottom:88px}
 
+/* Carrusel automático de testimonios — 2 copias de cada fila para loop sin cortes */
+.marquee-viewport{overflow:hidden;width:100%}
+.marquee-row{display:flex;gap:20px;width:max-content;animation:marquee-left 46s linear infinite}
+.marquee-row--reverse{animation-name:marquee-right}
+@keyframes marquee-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marquee-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
 /* Secciones claras — GI recomienda fondo claro para landings/secciones de conversión.
    Redefine las mismas variables (--muted, --border, etc.) así los componentes
    existentes (cards, kicker, lead) se adaptan solos sin reescribirlos. */

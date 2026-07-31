@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { countries, flagEmoji } from "@/lib/countries";
-import { PLAN_FEATURES, PRICE_TIERS, daysUntil, getActiveTierIndex, type PlanId } from "@/lib/eventos";
+import { PLAN_FEATURES, PRICE_TIERS, getActiveTierIndex, type PlanId } from "@/lib/eventos";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -49,21 +49,21 @@ const QUIZ = [
 ] as const;
 
 const PERFIL_AP: Record<string, string> = {
-  ceo: "Como CEO o dueño, tu mayor riesgo no es la falta de trabajo — es que la empresa dependa de que tú estés en cada decisión. Escalar es lograr que funcione sin ti.",
-  dir: "Como mano derecha del CEO, tu valor es traducir la estrategia en ejecución medible. Y no puedes alinear a un equipo en lo que nadie puede ver.",
-  emp: "Estás construyendo, y cada decisión define tu curva. Los que escalan no adivinan: miden los pocos números que importan desde el día uno.",
-  area: "Liderar un equipo sin un tablero común es remar sin rumbo. La claridad es lo que alinea y enfoca — la primera disciplina de la ejecución.",
+  ceo: "Como CEO o dueño, en CEO en Control vas a armar tu propio mapa con los 4 sistemas — no más consejos sueltos. ImpactX te da la dirección; Scaling Up, Topgrading y Hyper Sales Growth te sacan de la operación día a día.",
+  dir: "Como mano derecha del CEO, vas a salir hablando el mismo idioma que tu CEO: Scaling Up para las prioridades y KPIs, y Topgrading para las decisiones de equipo que hoy dependen de la intuición.",
+  emp: "Estás construyendo tu empresa, y el bootcamp te da el orden antes de necesitarlo: ImpactX para el modelo de negocio, Hyper Sales Growth para no depender de ti para vender.",
+  area: "Lideras un equipo o área, y en el bootcamp te llevás Scaling Up: el sistema de prioridades, KPIs y cadencia que le da a tu equipo un lenguaje común.",
 };
 const RETO_PROB: Record<string, string> = {
-  excel: "Llevar todo en Excel y a mano funcionó hasta cierto tamaño. Te enteras de los problemas cuando ya no se pueden corregir.",
-  intu: "Cuando dejas de ver los números, empiezas a confiar en tu intuición. Para escalar necesitas decidir con data, no con corazonadas.",
-  equipo: "El problema casi nunca es el esfuerzo: es que el equipo no está alineado en el «qué». Sin prioridades claras, cada quien rema hacia otro lado.",
-  control: "Estás creciendo sin estructura — vendiste mucho pero no hay procesos, y eso es caos. Crecer sin control es la forma más rápida de romper lo que construiste.",
+  excel: "Llevar todo en Excel es justo lo que Scaling Up resuelve: te vas con el Tablero del CEO y el Radar, un solo lugar para ver el estado real de tu empresa.",
+  intu: "Decidir por intuición se corrige con Topgrading: vas a salir sabiendo tomar mejores decisiones de talento y delegación, no adivinando.",
+  equipo: "Un equipo desalineado es exactamente el problema que ataca Scaling Up: prioridades, dueños y cadencia de reuniones para que todos remen para el mismo lado.",
+  control: "Crecer sin estructura se ordena con los 4 sistemas juntos: ImpactX te da el rumbo; Scaling Up, Topgrading y Hyper Sales Growth te dan el control operativo, comercial y de equipo.",
 };
 const ETAPA_LINE: Record<string, string> = {
-  grande: "Con tu tamaño, cada decisión mueve mucho dinero. La claridad es lo que separa escalar de quebrar.",
-  crec: "Estás justo en la zona donde el control se rompe primero. Es el momento exacto de poner orden en tus números.",
-  inicio: "Empezar con los números correctos hoy te ahorra años de manejar a ciegas.",
+  grande: "Con tu tamaño, el bootcamp te sirve para instalar los sistemas antes de que el caos cueste más caro — Scaling Up y Topgrading son justo para esta etapa.",
+  crec: "Estás en la etapa exacta para la que se diseñó CEO en Control: cuando el crecimiento empieza a romper la estructura que tenías.",
+  inicio: "Arrancar con los 4 sistemas desde ahora te ahorra años de reconstruir procesos más adelante.",
   na: "",
 };
 
@@ -88,7 +88,6 @@ export function PricingSection() {
   const now = useMemo(() => new Date(), []);
   const tierIdx = getActiveTierIndex(now);
   const tier = PRICE_TIERS[tierIdx];
-  const nextTier = PRICE_TIERS[tierIdx + 1];
 
   // Geo-IP — completa el país automáticamente si el visitante no lo tocó
   useEffect(() => {
@@ -182,7 +181,6 @@ export function PricingSection() {
   }
 
   const planPriceUSD = selectedPlan === "pro" ? tier.proUSD : tier.generalUSD;
-  const planPriceMXN = selectedPlan === "pro" ? tier.proMXN : tier.generalMXN;
   const planInfo = selectedPlan ? PLAN_FEATURES[selectedPlan] : null;
   const lastTier = PRICE_TIERS[PRICE_TIERS.length - 1];
 
@@ -197,10 +195,8 @@ export function PricingSection() {
           {(Object.keys(PLAN_FEATURES) as PlanId[]).map((id) => {
             const info = PLAN_FEATURES[id];
             const usd = id === "pro" ? tier.proUSD : tier.generalUSD;
-            const mxn = id === "pro" ? tier.proMXN : tier.generalMXN;
             const fullUsd = id === "pro" ? lastTier.proUSD : lastTier.generalUSD;
             const isSelected = selectedPlan === id && step !== "pricing";
-            const daysLeft = nextTier ? daysUntil(tier.endISO, now) : null;
             return (
               <div
                 key={id}
@@ -229,11 +225,7 @@ export function PricingSection() {
                     ${usd}<span className="ml-1 text-base font-bold opacity-70">USD</span>
                   </p>
                 </div>
-                <p className="text-sm text-[var(--muted)] mb-1">${mxn} MXN</p>
-                {daysLeft !== null && (
-                  <p className="text-xs font-semibold text-[var(--warning)] mb-5">Sube de precio en {daysLeft} día{daysLeft === 1 ? "" : "s"}</p>
-                )}
-                {daysLeft === null && <div className="mb-5" />}
+                <p className="text-xs font-semibold text-[var(--warning)] mb-5 mt-1">Oferta por tiempo limitado</p>
                 <ul className="space-y-2 text-sm mb-6">
                   {info.features.map((f) => (
                     <li key={f} className="flex gap-2 border-t border-[var(--border)] pt-2 first:border-t-0 first:pt-0">
@@ -336,7 +328,6 @@ export function PricingSection() {
 
                     <div className="space-y-2 border-t border-[rgba(8,16,34,.08)] pt-4 text-sm">
                       <div className="flex justify-between text-[#16181E]/60"><span>Subtotal</span><span>${planPriceUSD}.00</span></div>
-                      <div className="flex justify-between text-[#16181E]/60"><span>Referencia MXN</span><span>${planPriceMXN} MXN</span></div>
                     </div>
                     <div className="flex justify-between border-t border-[rgba(8,16,34,.08)] mt-3 pt-3 text-sm font-bold text-[#16181E]">
                       <span>Total</span><span>${planPriceUSD}.00</span>
@@ -384,8 +375,23 @@ export function PricingSection() {
 
               {step === "quiz" && (
                 <>
+                  <div className="mb-8 border-b border-white/10 pb-7 text-center">
+                    <div className="mx-auto mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[var(--success)]/45 bg-[var(--success)]/15 text-2xl">✓</div>
+                    <h3 className="text-2xl font-extrabold leading-tight">
+                      ¡Compra confirmada{firstName ? `, ${firstName}` : ""}!
+                    </h3>
+                    {planInfo && (
+                      <p className="mt-2 text-sm text-[var(--muted)]">
+                        Ticket {planInfo.name} · ${planPriceUSD} USD · CEO en Control, 29–30 agosto 2026
+                      </p>
+                    )}
+                    <p className="mt-2 text-sm text-[var(--soft)]">
+                      Te enviamos un email a <b>{email.trim().toLowerCase()}</b> con toda la información de acceso.
+                    </p>
+                  </div>
+
                   <div className="text-center mb-6">
-                    <p className="kicker mb-2">¡Reserva recibida, {firstName || "CEO"}! 🎉</p>
+                    <p className="kicker mb-2">Mientras tanto</p>
                     <h3 className="text-2xl font-extrabold leading-tight">En 3 clics personalizamos tu experiencia</h3>
                   </div>
                   <div className="flex gap-1.5 mb-6">
@@ -424,24 +430,17 @@ export function PricingSection() {
 
               {step === "done" && (
                 <>
-                  <div className="mb-6 text-center">
-                    <div className="mx-auto mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[var(--success)]/45 bg-[var(--success)]/15 text-2xl">✓</div>
-                    <h3 className="text-2xl font-extrabold leading-tight">
-                      ¡Todo listo{firstName ? `, ${firstName}` : ""}! Tu lugar está confirmado.
-                    </h3>
-                    {planInfo && (
-                      <p className="mt-2 text-sm text-[var(--muted)]">
-                        Ticket {planInfo.name} · ${planPriceUSD} USD · CEO en Control, 29–30 agosto 2026
-                      </p>
-                    )}
-                  </div>
-
-                  {!skipped && (
+                  {!skipped ? (
                     <div className="mx-auto mb-8 max-w-[640px] text-center">
-                      <p className="kicker mb-3">Análisis para vos</p>
+                      <p className="kicker mb-3">Análisis para ti</p>
                       <p className="mb-3 text-lg font-bold">{PERFIL_AP[answers.perfil] ?? PERFIL_AP.area}</p>
                       <p className="mb-3 text-[15px] text-[var(--soft)]">{RETO_PROB[answers.reto] ?? ""}</p>
                       {ETAPA_LINE[answers.etapa] && <p className="text-[15px] text-[var(--soft)]">{ETAPA_LINE[answers.etapa]}</p>}
+                    </div>
+                  ) : (
+                    <div className="mb-6 text-center">
+                      <h3 className="text-2xl font-extrabold leading-tight">¡Ya casi{firstName ? `, ${firstName}` : ""}!</h3>
+                      <p className="mt-2 text-sm text-[var(--muted)]">Unite al grupo de WhatsApp para no perderte nada.</p>
                     </div>
                   )}
 

@@ -212,7 +212,6 @@ function Agenda() {
           <AgendaColumn label="DÍA 1 · 29 AGOSTO · RECUPERAR CONTROL" items={AGENDA_DIA1} dark />
           <AgendaColumn label="DÍA 2 · 30 AGOSTO · LIBERAR Y CRECER" items={AGENDA_DIA2} />
         </div>
-        <p className="mt-5 text-sm text-[var(--muted)]">Coaches confirmados por sistema. Coaches de apertura y cierre: Daniel Marcos.</p>
       </div>
     </section>
   );
@@ -243,9 +242,6 @@ function LoQueObtienes() {
             </article>
           ))}
         </div>
-        <p className="mt-5 text-xs uppercase tracking-wider text-[var(--dim)]">
-          Próximamente: Scorecard Topgrading · Scorecard Hyper Sales Growth
-        </p>
       </div>
     </section>
   );
