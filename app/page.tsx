@@ -39,8 +39,26 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="pt-16 pb-12 md:pt-24 md:pb-16" style={{ background: "linear-gradient(180deg,#16181E 0%,#081022 100%)" }}>
-      <div className="wrap">
+    <section className="relative overflow-hidden pt-16 pb-12 md:pt-24 md:pb-16">
+      <div className="absolute inset-0 z-0 overflow-hidden" style={{ background: "var(--bg)" }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="h-full w-full object-cover"
+          style={{ transform: "scale(1.35)", transformOrigin: "18% 22%" }}
+        >
+          <source src="/brand/hero-bg.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{ background: "linear-gradient(180deg, rgba(8,16,34,.55) 0%, rgba(8,16,34,.8) 55%, var(--bg) 100%)" }}
+      />
+      <div className="wrap relative z-[2]">
         <div className="live-badge mb-6">
           <span className="live-dot" />
           <span>BOOTCAMP VIRTUAL EN VIVO</span>
