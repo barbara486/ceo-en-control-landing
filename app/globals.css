@@ -68,8 +68,21 @@ h1,h2,h3{letter-spacing:-.02em}
 
 /* Pricing plan card */
 .plan-card{border-radius:24px;padding:32px;border:1.5px solid var(--border-md);background:rgba(255,255,255,.03);transition:all .25s ease;cursor:pointer;text-align:left}
-.plan-card:hover{border-color:rgba(79,200,220,.4);transform:translateY(-2px)}
-.plan-card.is-selected{border-color:var(--ice);box-shadow:0 0 0 1px var(--ice),var(--glow-sm);background:rgba(79,200,220,.06)}
+.plan-card:hover{transform:translateY(-2px)}
+.plan-card.is-selected{border-color:var(--ice)}
+
+/* General — fondo oscuro de siempre + resplandor celeste sutil */
+.plan-card--general{box-shadow:0 0 34px rgba(79,200,220,.2)}
+.plan-card--general:hover{border-color:rgba(79,200,220,.4)}
+
+/* PRO — fondo claro para destacar del General + resplandor dorado */
+.plan-card--pro{
+  background:#fff;color:#16181E;border-color:transparent;
+  box-shadow:0 0 44px rgba(255,165,0,.4),0 0 90px rgba(255,165,0,.15);
+  --muted:rgba(22,24,30,.62);--dim:rgba(22,24,30,.4);--soft:rgba(22,24,30,.8);
+  --border:rgba(8,16,34,.1);--border-md:rgba(8,16,34,.16);
+}
+.plan-card--pro:hover{box-shadow:0 0 54px rgba(255,165,0,.5),0 0 110px rgba(255,165,0,.2)}
 
 .quiz-option{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:12px;border:1px solid var(--border-md);background:rgba(255,255,255,.03);color:#fff;font-size:14.5px;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;width:100%;font-family:inherit}
 .quiz-option:hover{background:rgba(31,79,216,.12);border-color:rgba(31,79,216,.5)}

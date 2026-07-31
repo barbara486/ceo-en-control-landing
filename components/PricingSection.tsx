@@ -201,17 +201,29 @@ export function PricingSection() {
               <div
                 key={id}
                 onClick={() => choosePlan(id)}
-                className={`plan-card relative cursor-pointer ${isSelected ? "is-selected" : ""}`}
+                className={`plan-card relative cursor-pointer ${id === "pro" ? "plan-card--pro" : "plan-card--general"} ${isSelected ? "is-selected" : ""}`}
               >
                 {info.featured && (
-                  <span className="absolute -top-3 right-6 rounded-full bg-[var(--purple-500)] px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+                  <span className="absolute -top-3 right-6 rounded-full bg-[var(--purple-500)] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
                     Mejor valor
                   </span>
                 )}
                 {isSelected && (
                   <span className="absolute top-4 right-4 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--ice)] text-[13px] font-black text-[#16181E]">✓</span>
                 )}
-                <p className="kicker mb-3">{info.name}</p>
+                {id === "pro" ? (
+                  <div className="mb-3 flex items-center gap-2.5">
+                    <p className="kicker !mb-0">PRO</p>
+                    <span
+                      className="rounded-full px-3 py-1 text-sm font-extrabold uppercase tracking-wide text-[#5c3a00]"
+                      style={{ background: "linear-gradient(135deg,#FFD65A,var(--warning))" }}
+                    >
+                      2×1
+                    </span>
+                  </div>
+                ) : (
+                  <p className="kicker mb-3">{info.name}</p>
+                )}
                 {tier.label !== lastTier.label && (
                   <span className="mb-2 inline-block rounded-full bg-[var(--warning)]/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--warning)]">
                     Oferta {tier.label}

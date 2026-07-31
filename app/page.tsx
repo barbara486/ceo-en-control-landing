@@ -55,7 +55,7 @@ function Hero() {
           <span className="text-2xl leading-none">📅</span>
           <div>
             <p className="text-sm font-bold">{EVENTO_ACTUAL.fechaLabel}</p>
-            <p className="mt-1 text-xs text-[var(--muted)]">{EVENTO_ACTUAL.formato} — el horario está en tiempo de Ciudad de México (CDMX). No es un evento presencial.</p>
+            <p className="mt-1 text-xs text-[var(--muted)]">{EVENTO_ACTUAL.formato} — el horario está en tiempo de Ciudad de México (CDMX).</p>
           </div>
         </div>
         <div className="mb-8">
