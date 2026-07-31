@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { Countdown } from "@/components/Countdown";
 import { PricingSection } from "@/components/PricingSection";
-import { Speaker } from "@/components/Speaker";
+import { Faculty } from "@/components/Faculty";
 import { Testimonials } from "@/components/Testimonials";
 import { EVENTO_ACTUAL } from "@/lib/eventos";
 
@@ -14,12 +14,15 @@ export default function Page() {
       <Problema />
       <Promesa />
       <Sistemas />
+      <Faculty />
+      <Curriculum />
       <Evento />
       <Agenda />
       <LoQueObtienes />
-      <Speaker />
       <Testimonials />
       <PricingSection />
+      <Outcomes />
+      <Fit />
       <Faq />
       <Footer />
     </main>
@@ -67,7 +70,8 @@ function Hero() {
           CEO en<br /><span className="accent">Control</span>
         </h1>
         <p className="lead max-w-[620px] mb-6">
-          Deja de improvisar. En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para <strong className="font-extrabold text-white">tener su empresa en control.</strong>
+          <span style={{ color: "#fff" }}>Deja de improvisar. En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para</span>{" "}
+          <strong className="font-extrabold text-white">tener su empresa en control.</strong>
         </p>
         <div className="date-glow mb-8">
           <span className="text-2xl leading-none">📅</span>
@@ -78,7 +82,7 @@ function Hero() {
         </div>
         <div className="mb-8">
           <a href="#comprar" className="btn btn-primary btn-sm md:h-[56px] md:px-8 md:text-base">Reservar mi lugar</a>
-          <p className="mt-3 text-xs text-[var(--dim)]">Cupo limitado · 1 ticket = 1 acceso individual a Zoom</p>
+          <p className="mt-3 text-xs text-white">Cupo limitado · 1 ticket = 1 acceso individual a Zoom</p>
         </div>
         <div>
           <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]">El bootcamp empieza en</p>
@@ -89,19 +93,52 @@ function Hero() {
   );
 }
 
+const COSTO_MALO = [
+  "Sos el cuello de botella de cada decisión importante",
+  "El equipo ejecuta, pero nadie prioriza como vos",
+  "Cada trimestre “apagás incendios” en vez de escalar",
+  "Contratás rápido y te equivocás caro",
+];
+const COSTO_BUENO = [
+  "Un propósito y modelo de negocio que alinea a toda la empresa",
+  "Prioridades y KPIs claros — el equipo ejecuta sin que estés en el medio",
+  "Las personas correctas en los roles correctos",
+  "Un motor comercial predecible que no depende del fundador",
+];
+
 function Problema() {
   return (
     <section className="section-py section-light">
-      <div className="wrap max-w-[760px]">
+      <div className="wrap">
         <Reveal>
-          <p className="kicker mb-3">EL PROBLEMA</p>
-          <h2 className="h2 mb-5">Tu empresa creció.<br />Tú no saliste de la operación.</h2>
-          <p className="lead mb-3">
-            El CEO en etapa 2–3 sabe que necesita sistemas para escalar. Sabe los nombres. No sabe cómo priorizarlos ni por dónde empezar. Sigue siendo el cuello de botella porque nadie le mostró el mapa completo.
-          </p>
-          <p className="lead opacity-90">
-            Y cada semana que pasa sin ese mapa, el costo de seguir operando así lo sigue pagando el propio CEO: menos tiempo, menos foco, menos crecimiento real.
-          </p>
+          <div className="max-w-[760px]">
+            <p className="kicker mb-3">EL PROBLEMA</p>
+            <h2 className="h2 mb-5">Tu empresa creció.<br />Tú no saliste de la operación.</h2>
+            <p className="lead mb-3">
+              El CEO en etapa 2–3 sabe que necesita sistemas para escalar. Sabe los nombres. No sabe cómo priorizarlos ni por dónde empezar. Sigue siendo el cuello de botella porque nadie le mostró el mapa completo.
+            </p>
+            <p className="lead opacity-90 mb-10">
+              Y cada semana que pasa sin ese mapa, el costo de seguir operando así lo sigue pagando el propio CEO: menos tiempo, menos foco, menos crecimiento real.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl p-7" style={{ background: "rgba(214,64,69,.05)", border: "1px solid rgba(214,64,69,.25)" }}>
+              <h4 className="mb-4 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--danger)" }}>Seguir operando así te cuesta</h4>
+              <ul className="space-y-3 text-[15px]">
+                {COSTO_MALO.map((f) => (
+                  <li key={f} className="flex gap-2.5"><span style={{ color: "var(--danger)" }}>●</span>{f}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl p-7" style={{ background: "rgba(31,79,216,.05)", border: "1px solid rgba(31,79,216,.22)" }}>
+              <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--blue-400)]">Con los 4 sistemas en marcha</h4>
+              <ul className="space-y-3 text-[15px]">
+                {COSTO_BUENO.map((f) => (
+                  <li key={f} className="flex gap-2.5"><span className="text-[var(--blue-400)]">●</span>{f}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -161,6 +198,82 @@ function Sistemas() {
   );
 }
 
+const CURRICULUM = [
+  {
+    num: "01",
+    title: "ImpactX — Propósito y modelo de negocio",
+    con: "Con Daniel Marcos",
+    items: [
+      "Definir (o afilar) el propósito que alinea las decisiones de toda la empresa",
+      "Diagnóstico ImpactX: dónde estás parado como líder hoy",
+      "El modelo de negocio que sostiene el crecimiento sin depender de ti",
+    ],
+    out: "Te vas con: tu propósito redactado + tu Diagnóstico ImpactX resuelto.",
+  },
+  {
+    num: "02",
+    title: "Scaling Up — Prioridades y ritmo",
+    con: "Con Paulina López & Miguel González",
+    items: [
+      "Cómo construir el Tablero del CEO: prioridades, KPIs y dueños claros",
+      "La cadencia de reuniones que hace que el equipo ejecute sin ti en el medio",
+      "Cómo detectar y romper tu cuello de botella actual",
+    ],
+    out: "Te vas con: tu Tablero del CEO armado con tus prioridades reales.",
+  },
+  {
+    num: "03",
+    title: "Topgrading — Talento y delegación",
+    con: "Con Marite Río Nevado",
+    items: [
+      "Cómo evaluar si tienes a las personas correctas en los roles correctos",
+      "El método para delegar sin perder control ni calidad",
+      "Señales tempranas de una contratación que no va a funcionar",
+    ],
+    out: "Te vas con: un mapa de qué rol de tu equipo necesita ajuste primero.",
+  },
+  {
+    num: "04",
+    title: "Hyper Sales Growth — Motor comercial",
+    con: "Con Christian Turnbull",
+    items: [
+      "Cómo construir un proceso de ventas visible y predecible",
+      "Los indicadores comerciales que un CEO debe mirar cada semana",
+      "Cómo hacer que el equipo de ventas cierre sin que tú estés en cada llamada",
+    ],
+    out: "Te vas con: tu primer borrador de proceso comercial documentado.",
+  },
+];
+
+function Curriculum() {
+  return (
+    <section className="section-py" style={{ background: "var(--bg)" }}>
+      <div className="wrap">
+        <p className="kicker mb-3">EL CONTENIDO, EN PROFUNDIDAD</p>
+        <h2 className="h2 mb-3">Qué vas a construir dentro de cada sistema.</h2>
+        <p className="lead mb-10">No son 4 charlas. Son 4 bloques de trabajo con un entregable concreto cada uno.</p>
+        <RevealGroup className="grid gap-5 md:grid-cols-2">
+          {CURRICULUM.map((c) => (
+            <RevealItem key={c.num}>
+              <article className="card-on-dark h-full rounded-2xl p-7" style={{ background: "rgba(255,255,255,.03)", border: "1px solid var(--border-md)", color: "#fff" }}>
+                <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-lg text-xs font-extrabold" style={{ background: "var(--grad-primary)" }}>{c.num}</span>
+                <h4 className="mb-1 text-lg font-extrabold">{c.title}</h4>
+                <p className="mb-4 text-sm font-semibold text-[var(--blue-300)]">{c.con}</p>
+                <ul className="mb-4 space-y-2 text-sm text-[var(--soft)]">
+                  {c.items.map((it) => (
+                    <li key={it} className="flex gap-2"><span className="text-[var(--muted)]">–</span>{it}</li>
+                  ))}
+                </ul>
+                <p className="border-t border-[var(--border)] pt-3 text-[13px] font-semibold text-[var(--muted)]">{c.out}</p>
+              </article>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
 function Evento() {
   return (
     <section className="section-py section-light">
@@ -196,16 +309,16 @@ function Evento() {
 }
 
 const AGENDA_DIA1 = [
-  { time: "09:00", title: "Apertura · De crecer por default a escalar por diseño", desc: "Daniel Marcos · La empresa creció; el CEO sigue siendo el cuello de botella." },
-  { time: "09:40", title: "La claridad es el primer sistema de control", desc: "ImpactX · Daniel Marcos · Propósito y modelo de negocio." },
-  { time: "11:00", title: "Las prioridades correctas crean el ritmo escalable", desc: "Scaling Up · Paulina López & Miguel González · Tablero del CEO + Radar." },
-  { time: "12:30", title: "Aplicación guiada · ¿Qué necesita ordenarse primero?", desc: "Cuello de botella, prioridad y siguiente conversación con el equipo." },
+  { time: "09:00", title: "Apertura · De crecer por default a escalar por diseño", desc: "Daniel Marcos · La empresa creció; el CEO sigue siendo el cuello de botella.", out: "Objetivo: identificar en qué etapa de crecimiento estás realmente." },
+  { time: "09:40", title: "La claridad es el primer sistema de control", desc: "ImpactX · Daniel Marcos · Propósito y modelo de negocio.", out: "Entregable: tu propósito redactado + tu Diagnóstico ImpactX." },
+  { time: "11:00", title: "Las prioridades correctas crean el ritmo escalable", desc: "Scaling Up · Paulina López & Miguel González · Tablero del CEO + Radar.", out: "Entregable: tu Tablero del CEO con tus 3 prioridades del trimestre." },
+  { time: "12:30", title: "Aplicación guiada · ¿Qué necesita ordenarse primero?", desc: "Cuello de botella, prioridad y siguiente conversación con el equipo.", out: "Entregable: tu plan de acción de los primeros 30 días." },
   { time: "13:15", title: "Cierre Día 1 · Síntesis y próximos pasos", desc: "Cierre operativo · 14:00" },
 ];
 const AGENDA_DIA2 = [
   { time: "09:00", title: "Recap · De control a capacidad", desc: "Qué cambia en la lectura del CEO después de ver el sistema operativo." },
-  { time: "09:30", title: "El equipo correcto multiplica la libertad del CEO", desc: "Topgrading · Marite Río Nevado · Roles críticos, talento y delegación." },
-  { time: "11:00", title: "El crecimiento comienza con tu cultura de ventas", desc: "Hyper Sales Growth · Christian Turnbull · Motor comercial predecible." },
+  { time: "09:30", title: "El equipo correcto multiplica la libertad del CEO", desc: "Topgrading · Marite Río Nevado · Roles críticos, talento y delegación.", out: "Entregable: mapa de roles de tu equipo con el primer ajuste a hacer." },
+  { time: "11:00", title: "El crecimiento comienza con tu cultura de ventas", desc: "Hyper Sales Growth · Christian Turnbull · Motor comercial predecible.", out: "Entregable: primer borrador de tu proceso comercial documentado." },
   { time: "12:30", title: "Una sola prioridad: el sistema que moverá todo lo demás", desc: "El CEO sale con una decisión clara, no con cinco tareas." },
   { time: "13:15", title: "Cierre · Síntesis y siguiente nivel", desc: "Agradecimientos y próximos pasos · Cierre operativo 14:00" },
 ];
@@ -220,6 +333,7 @@ function AgendaColumn({ label, items, dark }: { label: string; items: typeof AGE
           <div>
             <p className="text-[15px] font-bold">{it.title}</p>
             <p className="text-sm text-[var(--muted)]">{it.desc}</p>
+            {it.out && <p className="mt-1 text-[13px] font-semibold text-[var(--blue-400)]">{it.out}</p>}
           </div>
         </div>
       ))}
@@ -266,6 +380,89 @@ function LoQueObtienes() {
               <p className={`text-sm ${k.accent ? "text-white/90" : "text-[var(--muted)]"}`}>{k.desc}</p>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Outcomes() {
+  return (
+    <section className="section-py section-light">
+      <div className="wrap">
+        <div className="max-w-[680px] mb-10">
+          <p className="kicker mb-3">LO QUE TE LLEVÁS</p>
+          <h2 className="h2 mb-3">No es información. Son entregables que salen con tu nombre.</h2>
+          <p className="lead">Cada bloque termina con algo construido, no solo explicado.</p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          {[
+            {
+              title: "Al cierre del día 1",
+              items: [
+                "Tu propósito redactado y tu Diagnóstico ImpactX resuelto",
+                "Tu Tablero del CEO con las 3 prioridades del trimestre",
+                "Tu plan de acción de los primeros 30 días",
+              ],
+            },
+            {
+              title: "Al cierre del día 2",
+              items: [
+                "Mapa de roles de tu equipo con el primer ajuste identificado",
+                "Primer borrador de tu proceso comercial documentado",
+                "Una sola decisión clara para las próximas 2 semanas",
+              ],
+            },
+          ].map((col) => (
+            <div key={col.title} className="rounded-2xl p-7" style={{ background: "rgba(31,79,216,.05)", border: "1px solid rgba(31,79,216,.22)" }}>
+              <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--blue-400)]">{col.title}</h4>
+              <ul className="space-y-3 text-[15px]">
+                {col.items.map((it) => (
+                  <li key={it} className="flex gap-2.5"><span className="font-bold text-[var(--success)]">✓</span>{it}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Fit() {
+  return (
+    <section className="section-py section-light section-tint">
+      <div className="wrap">
+        <div className="max-w-[680px] mb-10">
+          <p className="kicker mb-3">¿ES PARA TI?</p>
+          <h2 className="h2">Este bootcamp no es para todos. Y está bien que así sea.</h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="card-on-light rounded-2xl p-7">
+            <h4 className="mb-4 text-xs font-bold uppercase tracking-wider text-[var(--blue-400)]">Es para ti si</h4>
+            <ul className="space-y-3 text-[15px]">
+              {[
+                "Ya tienes equipo formado, pero sigues siendo tú quien decide todo",
+                "Facturas lo suficiente para escalar, pero la operación no te da tiempo",
+                "Buscas un sistema, no otra charla motivacional",
+                "Estás dispuesto a trabajar en vivo, no solo a escuchar",
+              ].map((it) => (
+                <li key={it} className="flex gap-2.5"><span className="font-bold text-[var(--success)]">✓</span>{it}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl p-7" style={{ background: "rgba(214,64,69,.05)", border: "1px solid rgba(214,64,69,.25)" }}>
+            <h4 className="mb-4 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--danger)" }}>No es para ti si</h4>
+            <ul className="space-y-3 text-[15px]">
+              {[
+                "Estás recién empezando y todavía no tienes equipo",
+                "Buscas contenido pasivo para ver cuando tengas tiempo",
+                "No estás dispuesto a aplicar nada durante el bootcamp mismo",
+              ].map((it) => (
+                <li key={it} className="flex gap-2.5"><span style={{ color: "var(--danger)" }}>✕</span>{it}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
