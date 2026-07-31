@@ -41,16 +41,23 @@ function Hero() {
   return (
     <section className="pt-16 pb-12 md:pt-24 md:pb-16" style={{ background: "linear-gradient(180deg,#16181E 0%,#081022 100%)" }}>
       <div className="wrap">
-        <p className="kicker mb-4">GROWTH INSTITUTE · BOOTCAMP VIRTUAL EN VIVO</p>
+        <div className="live-badge mb-6">
+          <span className="live-dot" />
+          <span>BOOTCAMP VIRTUAL EN VIVO</span>
+        </div>
         <h1 className="text-[56px] md:text-[92px] font-extrabold leading-[1.02] tracking-tight mb-6">
-          CEO en<br />Control
+          CEO en<br /><span className="accent">Control</span>
         </h1>
         <p className="lead max-w-[620px] mb-6">
-          Deja de improvisar. En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para tener su empresa en control.
+          Deja de improvisar. En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para <strong className="font-extrabold text-white">tener su empresa en control.</strong>
         </p>
-        <p className="text-sm font-semibold mb-8">
-          {EVENTO_ACTUAL.fechaLabel} <span className="text-[var(--purple-300)] mx-2">·</span> {EVENTO_ACTUAL.formato}
-        </p>
+        <div className="date-glow mb-8">
+          <span className="text-2xl leading-none">📅</span>
+          <div>
+            <p className="text-sm font-bold">{EVENTO_ACTUAL.fechaLabel}</p>
+            <p className="mt-1 text-xs text-[var(--muted)]">{EVENTO_ACTUAL.formato} — el horario está en tiempo de Ciudad de México (CDMX). No es un evento presencial.</p>
+          </div>
+        </div>
         <div className="mb-8">
           <a href="#comprar" className="btn btn-primary btn-sm md:h-[56px] md:px-8 md:text-base">Reservar mi lugar</a>
           <p className="mt-3 text-xs text-[var(--dim)]">Cupo limitado · 1 ticket = 1 acceso individual a Zoom</p>
