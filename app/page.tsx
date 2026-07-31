@@ -3,6 +3,7 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
 import { Countdown } from "@/components/Countdown";
 import { PricingSection } from "@/components/PricingSection";
 import { Faculty } from "@/components/Faculty";
+import { BottleneckDiagram } from "@/components/BottleneckDiagram";
 import { Testimonials } from "@/components/Testimonials";
 import { EVENTO_ACTUAL } from "@/lib/eventos";
 
@@ -12,7 +13,6 @@ export default function Page() {
       <Nav />
       <Hero />
       <Problema />
-      <Promesa />
       <Sistemas />
       <Faculty />
       <Curriculum />
@@ -94,10 +94,10 @@ function Hero() {
 }
 
 const COSTO_MALO = [
-  "Sos el cuello de botella de cada decisión importante",
-  "El equipo ejecuta, pero nadie prioriza como vos",
-  "Cada trimestre “apagás incendios” en vez de escalar",
-  "Contratás rápido y te equivocás caro",
+  "Eres el cuello de botella de cada decisión importante",
+  "El equipo ejecuta, pero nadie prioriza como tú",
+  "Cada trimestre “apagas incendios” en vez de escalar",
+  "Contratas rápido y te equivocas caro",
 ];
 const COSTO_BUENO = [
   "Un propósito y modelo de negocio que alinea a toda la empresa",
@@ -121,7 +121,10 @@ function Problema() {
               Y cada semana que pasa sin ese mapa, el costo de seguir operando así lo sigue pagando el propio CEO: menos tiempo, menos foco, menos crecimiento real.
             </p>
           </div>
-          <div className="grid gap-5 md:grid-cols-2">
+
+          <BottleneckDiagram />
+
+          <div className="grid gap-5 md:grid-cols-2 mt-12">
             <div className="rounded-2xl p-7" style={{ background: "rgba(214,64,69,.05)", border: "1px solid rgba(214,64,69,.25)" }}>
               <h4 className="mb-4 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--danger)" }}>Seguir operando así te cuesta</h4>
               <ul className="space-y-3 text-[15px]">
@@ -145,50 +148,37 @@ function Problema() {
   );
 }
 
-function Promesa() {
-  return (
-    <section className="section-py" style={{ background: "var(--bg)" }}>
-      <div className="wrap max-w-[760px]">
-        <Reveal>
-          <p className="kicker mb-3">LA PROMESA</p>
-          <h2 className="h2 mb-5">Deja de improvisar.</h2>
-          <p className="lead mb-3">En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para tener su empresa en control:</p>
-          <p className="accent text-2xl font-extrabold">ImpactX, Scaling Up, Topgrading e Hyper Sales Growth.</p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 const SISTEMAS = [
-  { num: "01", title: "ImpactX", desc: "Sistema de propósito y modelo de negocio. Le da dirección al CEO y a toda la empresa.", coach: "COACH · DANIEL MARCOS", photo: true },
-  { num: "02", title: "Scaling Up", desc: "Prioridades, KPIs, dueños y cadencia. El sistema que le devuelve el ritmo operativo.", coach: "COACH · PAULINA LÓPEZ & MIGUEL GONZÁLEZ" },
-  { num: "03", title: "Topgrading", desc: "Mejores decisiones de talento y delegación. Construye el equipo correcto.", coach: "COACH · MARITE RÍO NEVADO" },
-  { num: "04", title: "Hyper Sales Growth", desc: "Motor comercial visible, predecible y que funciona sin el CEO.", coach: "COACH · CHRISTIAN TURNBULL", accent: true },
+  { num: "01", logo: "/brand/logos/impactx.png", logoAlt: "ImpactX", desc: "Sistema de propósito y modelo de negocio. Le da dirección al CEO y a toda la empresa.", coach: "COACH · DANIEL MARCOS" },
+  { num: "02", logo: "/brand/logos/scaling-up.png", logoAlt: "Scaling Up", desc: "Prioridades, KPIs, dueños y cadencia. El sistema que le devuelve el ritmo operativo.", coach: "COACH · PAULINA LÓPEZ & MIGUEL GONZÁLEZ" },
+  { num: "03", logo: "/brand/logos/topgrading.png", logoAlt: "Topgrading", desc: "Mejores decisiones de talento y delegación. Construye el equipo correcto.", coach: "COACH · MARITE RÍO NEVADO" },
+  { num: "04", logo: "/brand/logos/hyper-sales-growth-ondark.png", logoAlt: "Hyper Sales Growth", desc: "Motor comercial visible, predecible y que funciona sin el CEO.", coach: "COACH · CHRISTIAN TURNBULL", accent: true },
 ];
 
 function Sistemas() {
   return (
     <section className="section-py section-light">
       <div className="wrap">
-        <p className="kicker mb-3">LOS 4 SISTEMAS</p>
-        <h2 className="h2 mb-8">Lo que vas a conocer</h2>
+        <div className="max-w-[760px]">
+          <Reveal>
+            <p className="kicker mb-3">LA PROMESA · LOS 4 SISTEMAS</p>
+            <h2 className="h2 mb-5">Deja de improvisar.</h2>
+            <p className="lead mb-10">En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para tener su empresa en control.</p>
+          </Reveal>
+        </div>
         <RevealGroup className="grid gap-5 md:grid-cols-2">
           {SISTEMAS.map((s) => (
             <RevealItem key={s.num}>
               <article
-                className={`card-lift flex h-full flex-col rounded-3xl ${s.accent ? "text-white" : "card-on-light"} ${s.photo ? "overflow-hidden p-0" : "p-7"}`}
+                className={`card-lift flex h-full flex-col rounded-3xl p-7 ${s.accent ? "text-white" : "card-on-light"}`}
                 style={s.accent ? { background: "var(--grad-vivid)" } : undefined}
               >
-                {s.photo && (
-                  <Image src="/brand/daniel-foto-4.jpg" alt="Daniel Marcos, coach de ImpactX" width={640} height={360} className="aspect-video w-full object-cover object-top" />
-                )}
-                <div className={s.photo ? "p-7" : ""}>
-                  <span className="text-xs font-bold opacity-50">{s.num}</span>
-                  <h3 className="mt-2 mb-3 text-2xl font-extrabold">{s.title}</h3>
-                  <p className={`mb-5 text-[15px] ${s.accent ? "text-white/90" : "text-[var(--muted)]"}`}>{s.desc}</p>
-                  <p className={`text-[11px] font-bold uppercase tracking-wider ${s.accent ? "text-white/65" : "text-[var(--dim)]"}`}>{s.coach}</p>
+                <span className="text-xs font-bold opacity-50">{s.num}</span>
+                <div className="my-4 flex h-10 items-center">
+                  <Image src={s.logo} alt={s.logoAlt} width={220} height={56} className="h-full w-auto object-contain" style={{ objectPosition: "left" }} />
                 </div>
+                <p className={`mb-5 text-[15px] ${s.accent ? "text-white/90" : "text-[var(--muted)]"}`}>{s.desc}</p>
+                <p className={`mt-auto text-[11px] font-bold uppercase tracking-wider ${s.accent ? "text-white/65" : "text-[var(--dim)]"}`}>{s.coach}</p>
               </article>
             </RevealItem>
           ))}
@@ -247,15 +237,27 @@ const CURRICULUM = [
 
 function Curriculum() {
   return (
-    <section className="section-py" style={{ background: "var(--bg)" }}>
-      <div className="wrap">
-        <p className="kicker mb-3">EL CONTENIDO, EN PROFUNDIDAD</p>
+    <section className="relative section-py overflow-hidden" style={{ background: "var(--bg)" }}>
+      <Image src="/brand/backgrounds/bg-curriculum.jpg" alt="" fill sizes="100vw" className="absolute inset-0 object-cover opacity-60" />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,16,34,.75) 0%, rgba(8,16,34,.9) 100%)" }} />
+      <div className="wrap relative">
+        <p className="kicker mb-3 text-[var(--blue-300)]">EL CONTENIDO, EN PROFUNDIDAD</p>
         <h2 className="h2 mb-3">Qué vas a construir dentro de cada sistema.</h2>
         <p className="lead mb-10">No son 4 charlas. Son 4 bloques de trabajo con un entregable concreto cada uno.</p>
         <RevealGroup className="grid gap-5 md:grid-cols-2">
           {CURRICULUM.map((c) => (
             <RevealItem key={c.num}>
-              <article className="card-on-dark h-full rounded-2xl p-7" style={{ background: "rgba(255,255,255,.03)", border: "1px solid var(--border-md)", color: "#fff" }}>
+              <article
+                className="h-full rounded-2xl p-7"
+                style={{
+                  background: "rgba(8,16,34,.55)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255,255,255,.14)",
+                  boxShadow: "0 20px 50px rgba(0,0,0,.35), 0 0 40px rgba(31,79,216,.15)",
+                  color: "#fff",
+                }}
+              >
                 <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-lg text-xs font-extrabold" style={{ background: "var(--grad-primary)" }}>{c.num}</span>
                 <h4 className="mb-1 text-lg font-extrabold">{c.title}</h4>
                 <p className="mb-4 text-sm font-semibold text-[var(--blue-300)]">{c.con}</p>
@@ -264,7 +266,7 @@ function Curriculum() {
                     <li key={it} className="flex gap-2"><span className="text-[var(--muted)]">–</span>{it}</li>
                   ))}
                 </ul>
-                <p className="border-t border-[var(--border)] pt-3 text-[13px] font-semibold text-[var(--muted)]">{c.out}</p>
+                <p className="border-t border-[var(--border)] pt-3 text-[13px] font-bold" style={{ color: "var(--warning)" }}>{c.out}</p>
               </article>
             </RevealItem>
           ))}
@@ -286,19 +288,19 @@ function Evento() {
             <p className="text-2xl font-extrabold leading-tight mb-2">29 – 30<br />Agosto 2026</p>
             <p className="text-sm text-[var(--muted)]">09:00 – 14:00 CDMX</p>
           </div>
-          <div className="card-on-light rounded-3xl p-7">
-            <p className="kicker mb-4">FORMATO</p>
+          <div className="rounded-3xl p-7" style={{ background: "rgba(137,122,235,.07)", border: "1px solid rgba(137,122,235,.28)" }}>
+            <p className="kicker mb-4 text-[var(--purple-500)]">FORMATO</p>
             <ul className="space-y-2 text-sm text-[var(--muted)]">
               {["Virtual en vivo por Zoom", "1 ticket = 1 sesión de entrada a Zoom", "Acceso individual, no se reenvía el link", "Sin replay anunciado", "Grupo de WhatsApp 14 días antes", "Diploma firmado por Growth Institute"].map((f) => (
-                <li key={f} className="border-t border-[var(--border)] pt-2 first:border-t-0 first:pt-0">{f}</li>
+                <li key={f} className="border-t pt-2 first:border-t-0 first:pt-0" style={{ borderColor: "rgba(137,122,235,.18)" }}>{f}</li>
               ))}
             </ul>
           </div>
-          <div className="card-on-light rounded-3xl p-7">
-            <p className="kicker mb-4">PARA QUIÉN</p>
+          <div className="rounded-3xl p-7" style={{ background: "rgba(79,200,220,.07)", border: "1px solid rgba(79,200,220,.3)" }}>
+            <p className="kicker mb-4 text-[var(--ice)]">PARA QUIÉN</p>
             <ul className="space-y-2 text-sm text-[var(--muted)]">
               {["CEO etapa 2–3 (LATAM + USA)", "Ya tiene equipo", "Sigue siendo el cuello de botella", "Necesita claridad, no más contenido"].map((f) => (
-                <li key={f} className="border-t border-[var(--border)] pt-2 first:border-t-0 first:pt-0">{f}</li>
+                <li key={f} className="border-t pt-2 first:border-t-0 first:pt-0" style={{ borderColor: "rgba(79,200,220,.18)" }}>{f}</li>
               ))}
             </ul>
           </div>
@@ -357,7 +359,7 @@ function Agenda() {
 }
 
 const KIT = [
-  { icon: "📊", title: "Tablero del CEO", desc: "Tu panel de control para tomar decisiones con claridad. El estado real de tu empresa en un solo lugar.", accent: true },
+  { icon: "📊", title: "Tablero del CEO", desc: "Tu panel de control para tomar decisiones con claridad. El estado real de tu empresa en un solo lugar." },
   { icon: "🧭", title: "Radar del CEO", desc: "Diagnóstico de los 8 ejes críticos de tu negocio. Saber dónde estás es el primer paso para tomar el control." },
   { icon: "🎯", title: "Diagnóstico ImpactX", desc: "Evalúa tu liderazgo e impacto como CEO. Resultados personalizados sobre dónde enfocarte primero." },
 ];
@@ -370,14 +372,10 @@ function LoQueObtienes() {
         <h2 className="h2 mb-8">Solo por asistir los 2 días, te llevas:</h2>
         <div className="grid gap-5 md:grid-cols-3">
           {KIT.map((k) => (
-            <article
-              key={k.title}
-              className={`rounded-3xl p-7 ${k.accent ? "text-white" : "card-on-light"}`}
-              style={k.accent ? { background: "var(--grad-glow)" } : undefined}
-            >
+            <article key={k.title} className="kit-card rounded-3xl p-7">
               <span className="text-3xl">{k.icon}</span>
               <h3 className="mt-4 mb-3 text-lg font-extrabold">{k.title}</h3>
-              <p className={`text-sm ${k.accent ? "text-white/90" : "text-[var(--muted)]"}`}>{k.desc}</p>
+              <p className="kit-card__desc text-sm">{k.desc}</p>
             </article>
           ))}
         </div>
@@ -391,7 +389,7 @@ function Outcomes() {
     <section className="section-py section-light">
       <div className="wrap">
         <div className="max-w-[680px] mb-10">
-          <p className="kicker mb-3">LO QUE TE LLEVÁS</p>
+          <p className="kicker mb-3">LO QUE TE LLEVAS</p>
           <h2 className="h2 mb-3">No es información. Son entregables que salen con tu nombre.</h2>
           <p className="lead">Cada bloque termina con algo construido, no solo explicado.</p>
         </div>
@@ -470,7 +468,7 @@ function Fit() {
 }
 
 const FAQ = [
-  { q: "¿Hay grabación si no puedo estar en vivo?", a: "No. El acceso es solo en vivo por Zoom, sin replay anunciado. Si reservás tu lugar, bloqueá esas fechas: 29 y 30 de agosto, 09:00–14:00 CDMX." },
+  { q: "¿Hay grabación si no puedo estar en vivo?", a: "No. El acceso es solo en vivo por Zoom, sin replay anunciado. Si reservas tu lugar, bloquea esas fechas: 29 y 30 de agosto, 09:00–14:00 CDMX." },
   { q: "¿Puedo compartir mi acceso con otra persona?", a: "No. 1 ticket = 1 sesión de entrada a Zoom. El acceso es individual. Si van dos personas de tu empresa, el ticket PRO incluye 2 accesos (CEO + mano derecha)." },
   { q: "¿Es para mí?", a: "Está pensado para CEOs en etapa 2–3 (LATAM y USA) que ya tienen equipo, siguen siendo el cuello de botella y necesitan claridad — no más contenido." },
   { q: "¿Qué diferencia hay entre el ticket General y el PRO?", a: "El General incluye los 2 días en vivo, herramientas, diploma y grupo de WhatsApp. El PRO (2×1) suma un segundo acceso y una sesión adicional la semana siguiente." },

@@ -106,6 +106,7 @@ h1,h2,h3{letter-spacing:-.02em}
 .marquee-viewport{overflow:hidden;width:100%}
 .marquee-row{display:flex;gap:20px;width:max-content;animation:marquee-left 46s linear infinite}
 .marquee-row--reverse{animation-name:marquee-right}
+.glass-frosted{background:rgba(255,255,255,.55);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);box-shadow:0 8px 30px rgba(8,16,34,.08),inset 0 1px 0 rgba(255,255,255,.6)}
 @keyframes marquee-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes marquee-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
@@ -120,6 +121,13 @@ h1,h2,h3{letter-spacing:-.02em}
 .section-tint{background:#F3F4F8}
 .card-on-light{background:#fff;border:1px solid rgba(8,16,34,.1);box-shadow:0 4px 20px rgba(8,16,34,.06)}
 /* Re-establece las variables dark-theme para una card oscura anidada dentro de .section-light */
+.kit-card{background:#fff;color:#16181E;border:1px solid rgba(8,16,34,.1);box-shadow:0 4px 20px rgba(8,16,34,.06);transition:all .25s ease}
+.kit-card__desc{color:var(--muted);transition:color .25s ease}
+.kit-card:hover{background:var(--grad-glow);border-color:transparent;color:#fff;box-shadow:0 14px 36px rgba(137,122,235,.4);transform:translateY(-2px)}
+.kit-card:hover .kit-card__desc{color:rgba(255,255,255,.92)}
+
+.faculty-card{background:#fff;border:1px solid rgba(8,16,34,.1);box-shadow:0 4px 20px rgba(8,16,34,.06);transition:all .25s ease}
+.faculty-card:hover{background:rgba(31,79,216,.06);border-color:rgba(31,79,216,.35);box-shadow:0 10px 32px rgba(31,79,216,.18);transform:translateY(-2px)}
 .card-on-dark{
   --muted:rgba(255,255,255,.6);--dim:rgba(255,255,255,.38);--soft:rgba(255,255,255,.75);
   --border:rgba(255,255,255,.08);--border-md:rgba(255,255,255,.14);

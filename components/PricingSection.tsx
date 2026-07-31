@@ -52,7 +52,7 @@ const PERFIL_AP: Record<string, string> = {
   ceo: "Como CEO o dueño, en CEO en Control vas a armar tu propio mapa con los 4 sistemas — no más consejos sueltos. ImpactX te da la dirección; Scaling Up, Topgrading y Hyper Sales Growth te sacan de la operación día a día.",
   dir: "Como mano derecha del CEO, vas a salir hablando el mismo idioma que tu CEO: Scaling Up para las prioridades y KPIs, y Topgrading para las decisiones de equipo que hoy dependen de la intuición.",
   emp: "Estás construyendo tu empresa, y el bootcamp te da el orden antes de necesitarlo: ImpactX para el modelo de negocio, Hyper Sales Growth para no depender de ti para vender.",
-  area: "Lideras un equipo o área, y en el bootcamp te llevás Scaling Up: el sistema de prioridades, KPIs y cadencia que le da a tu equipo un lenguaje común.",
+  area: "Lideras un equipo o área, y en el bootcamp te llevas Scaling Up: el sistema de prioridades, KPIs y cadencia que le da a tu equipo un lenguaje común.",
 };
 const RETO_PROB: Record<string, string> = {
   excel: "Llevar todo en Excel es justo lo que Scaling Up resuelve: te vas con el Tablero del CEO y el Radar, un solo lugar para ver el estado real de tu empresa.",
@@ -130,7 +130,7 @@ export function PricingSection() {
 
   async function submitForm() {
     setErr(null);
-    if (!valid) { setErr("Escribí tu nombre y apellido, un email y un teléfono válidos."); return; }
+    if (!valid) { setErr("Escribe tu nombre y apellido, un email y un teléfono válidos."); return; }
     setLoading(true);
     try {
       await fetch("/api/lead", {
@@ -187,7 +187,7 @@ export function PricingSection() {
   return (
     <section id="comprar" className="section-py">
       <div className="wrap">
-        <p className="kicker mb-3">LA OFERTA</p>
+        <p className="kicker mb-3 text-[var(--blue-300)]">LA OFERTA</p>
         <h2 className="h2 mb-8">Dos tickets. Sin VIP.</h2>
 
         {/* FASE 1 — Pricing */}
@@ -222,7 +222,7 @@ export function PricingSection() {
                     </span>
                   </div>
                 ) : (
-                  <p className="kicker mb-3">{info.name}</p>
+                  <p className="kicker mb-3 text-[var(--blue-300)]">{info.name}</p>
                 )}
                 {tier.label !== lastTier.label && (
                   <span className="mb-2 inline-block rounded-full bg-[var(--warning)]/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--warning)]">
@@ -271,9 +271,9 @@ export function PricingSection() {
             >
               {step === "form" && (
                 <>
-                  <p className="kicker mb-2">Ticket {planInfo?.name}</p>
-                  <h3 className="text-2xl font-extrabold mb-1">Completá tus datos</h3>
-                  <p className="text-sm text-[var(--muted)] mb-6">Un minuto y quedás en la lista. Después vas al pago.</p>
+                  <p className="kicker mb-2 text-[var(--blue-300)]">Ticket {planInfo?.name}</p>
+                  <h3 className="text-2xl font-extrabold mb-1">Completa tus datos</h3>
+                  <p className="text-sm text-[var(--muted)] mb-6">Un minuto y quedas en la lista. Después vas al pago.</p>
 
                   <label className="field-label">Nombre y apellido</label>
                   <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ej. Ana Torres" maxLength={80} className="field-input mb-4" autoComplete="name" />
@@ -403,7 +403,7 @@ export function PricingSection() {
                   </div>
 
                   <div className="text-center mb-6">
-                    <p className="kicker mb-2">Mientras tanto</p>
+                    <p className="kicker mb-2 text-[var(--blue-300)]">Mientras tanto</p>
                     <h3 className="text-2xl font-extrabold leading-tight">En 3 clics personalizamos tu experiencia</h3>
                   </div>
                   <div className="flex gap-1.5 mb-6">
@@ -430,7 +430,7 @@ export function PricingSection() {
                   <div className="mt-5 rounded-2xl border-[1.5px] border-[var(--success)]/45 bg-gradient-to-br from-[var(--success)]/15 to-[var(--success)]/5 p-5 text-center">
                     <p className="mb-2.5 text-sm font-bold text-[var(--success)]">🚀 Únete al grupo con otros CEOs que también están escalando</p>
                     <p className="mb-2 text-xs text-[var(--muted)]">
-                      Continuás en <b className="tabular-nums text-[var(--success)]">{Math.floor(quizTimer / 60)}:{String(quizTimer % 60).padStart(2, "0")}</b>
+                      Continúas en <b className="tabular-nums text-[var(--success)]">{Math.floor(quizTimer / 60)}:{String(quizTimer % 60).padStart(2, "0")}</b>
                     </p>
                     <div className="mb-3.5 h-1 overflow-hidden rounded-full bg-white/10">
                       <div className="h-full bg-[var(--success)] transition-[width] duration-1000" style={{ width: `${(quizTimer / QUIZ_SECONDS) * 100}%` }} />
@@ -444,7 +444,7 @@ export function PricingSection() {
                 <>
                   {!skipped ? (
                     <div className="mx-auto mb-8 max-w-[640px] text-center">
-                      <p className="kicker mb-3">Análisis para ti</p>
+                      <p className="kicker mb-3 text-[var(--blue-300)]">Análisis para ti</p>
                       <p className="mb-3 text-lg font-bold">{PERFIL_AP[answers.perfil] ?? PERFIL_AP.area}</p>
                       <p className="mb-3 text-[15px] text-[var(--soft)]">{RETO_PROB[answers.reto] ?? ""}</p>
                       {ETAPA_LINE[answers.etapa] && <p className="text-[15px] text-[var(--soft)]">{ETAPA_LINE[answers.etapa]}</p>}
@@ -452,7 +452,7 @@ export function PricingSection() {
                   ) : (
                     <div className="mb-6 text-center">
                       <h3 className="text-2xl font-extrabold leading-tight">¡Ya casi{firstName ? `, ${firstName}` : ""}!</h3>
-                      <p className="mt-2 text-sm text-[var(--muted)]">Unite al grupo de WhatsApp para no perderte nada.</p>
+                      <p className="mt-2 text-sm text-[var(--muted)]">Únete al grupo de WhatsApp para no perderte nada.</p>
                     </div>
                   )}
 
@@ -508,7 +508,7 @@ function WhatsAppRedirect() {
         Unirme al grupo ahora →
       </a>
       {WHATSAPP_GROUP_URL === "#" && (
-        <p className="mt-2 text-[10px] text-[var(--dim)]">Placeholder — acá va el link real del grupo cuando lo tengas.</p>
+        <p className="mt-2 text-[10px] text-[var(--dim)]">Placeholder — aquí va el link real del grupo cuando lo tengas.</p>
       )}
     </div>
   );

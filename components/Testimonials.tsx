@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const TESTIMONIOS = [
   { quote: "Hace 1 año apliqué tus enseñanzas y he crecido 6 veces en facturación en un año.", author: "Jhairo R." },
   { quote: "Oro molido su información. He aplicado varios de sus consejos y me han cambiado la vida.", author: "Luis Carlos A." },
@@ -15,7 +17,7 @@ const TESTIMONIOS = [
   { quote: "Poquito tiempo pero no tiene desperdicio. Buenísimo de principio a fin.", author: "Antonio C." },
   { quote: "Cuestiones prácticas y funcionales, explicadas de forma clara y precisa. Me es de mucha utilidad.", author: "César C." },
   { quote: "Estos consejos son muy buenos para llevar mi proyecto adelante de manera asertiva y efectiva.", author: "Adriana D." },
-  { quote: "Soy tu súper fan, la neta me inspirás.", author: "Rubén S." },
+  { quote: "Soy tu súper fan, la neta me inspiras.", author: "Rubén S." },
   { quote: "Excelente contenido. Gracias por compartir información tan valiosa.", author: "Lauren L." },
   { quote: "Excelente aporte. Acompaño mi visión con este tipo de contenido.", author: "Nicolás T." },
   { quote: "Siempre compartiendo contenido interesante y aportando valor real.", author: "Eduardo N." },
@@ -30,8 +32,8 @@ function chunk<T>(arr: T[], n: number): T[][] {
 
 function Card({ t }: { t: (typeof TESTIMONIOS)[number] }) {
   return (
-    <figure className="card-on-light w-[340px] shrink-0 rounded-2xl p-6">
-      <blockquote className="text-[15px] leading-relaxed text-[var(--soft)]">&ldquo;{t.quote}&rdquo;</blockquote>
+    <figure className="glass-frosted w-[340px] shrink-0 rounded-2xl p-6">
+      <blockquote className="text-[15px] leading-relaxed text-[#16181E]/80">&ldquo;{t.quote}&rdquo;</blockquote>
       <figcaption className="mt-4 text-xs font-bold uppercase tracking-wider text-[var(--blue-400)]">{t.author}</figcaption>
     </figure>
   );
@@ -41,14 +43,17 @@ export function Testimonials() {
   const rows = chunk(TESTIMONIOS, 3);
 
   return (
-    <section className="section-py section-light overflow-hidden">
-      <div className="wrap mb-10">
+    <section className="relative section-py overflow-hidden" style={{ background: "#F5F6FA" }}>
+      <Image src="/brand/backgrounds/bg-testimonials.jpg" alt="" fill sizes="100vw" className="absolute inset-0 object-cover" />
+      <div className="absolute inset-0" style={{ background: "rgba(255,255,255,.4)" }} />
+
+      <div className="wrap relative mb-16">
         <p className="kicker mb-3">LA COMUNIDAD GI</p>
-        <h2 className="h2 mb-3">Lo que dice la audiencia de Daniel Marcos</h2>
-        <p className="lead">Comentarios reales de la audiencia de Growth Institute (nombres abreviados por privacidad).</p>
+        <h2 className="h2 mb-3" style={{ color: "#16181E" }}>Lo que dice la audiencia de Daniel Marcos</h2>
+        <p className="lead" style={{ color: "rgba(22,24,30,.65)" }}>Comentarios reales de la audiencia de Growth Institute (nombres abreviados por privacidad).</p>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="relative flex flex-col gap-5">
         {rows.map((row, i) => (
           <div key={i} className="marquee-viewport">
             <div className={`marquee-row ${i === 1 ? "marquee-row--reverse" : ""}`}>
