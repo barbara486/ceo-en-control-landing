@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { EVENTO_ACTUAL } from "@/lib/eventos";
@@ -26,6 +26,11 @@ export const metadata: Metadata = {
     description: "Deja de improvisar. En 2 días vas a conocer los 4 sistemas que los CEOs profesionales usan para tener su empresa en control.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 const eventJsonLd = {

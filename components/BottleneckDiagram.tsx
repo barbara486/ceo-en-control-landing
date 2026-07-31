@@ -8,7 +8,7 @@ const ITEMS = [
 ];
 
 const CENTER = { x: 500, y: 300 };
-const RADIUS = 85;
+const RADIUS = 90;
 const VB_W = 1000;
 const VB_H = 600;
 
@@ -51,11 +51,14 @@ export function BottleneckDiagram() {
         {ITEMS.map((it) => (
           <div
             key={it.label}
-            className="card-on-light absolute flex items-center justify-center rounded-xl px-3 py-2 text-center text-[13px] font-semibold leading-tight"
+            className="card-on-light absolute flex items-center justify-center rounded-xl text-center font-semibold leading-tight"
             style={{
               left: `${(it.x / VB_W) * 100}%`,
               top: `${(it.y / VB_H) * 100}%`,
-              width: "19%",
+              width: "20%",
+              minWidth: 0,
+              padding: "clamp(5px,1.6vw,10px) clamp(6px,2.2vw,14px)",
+              fontSize: "clamp(9px, 2.5vw, 13px)",
               transform: "translate(-50%, -50%)",
             }}
           >
@@ -70,13 +73,20 @@ export function BottleneckDiagram() {
             top: `${(CENTER.y / VB_H) * 100}%`,
             width: `${((RADIUS * 2) / VB_W) * 100}%`,
             aspectRatio: "1 / 1",
+            minWidth: 0,
+            padding: "4%",
             transform: "translate(-50%, -50%)",
             background: "radial-gradient(circle at 35% 30%, #e3676b, var(--danger))",
             boxShadow: "0 0 40px rgba(214,64,69,.45)",
           }}
         >
-          <span className="text-lg font-extrabold md:text-xl">TÚ</span>
-          <span className="mt-0.5 text-[9px] font-bold uppercase tracking-wider opacity-90 md:text-[10px]">Cuello de botella</span>
+          <span className="block w-full font-extrabold" style={{ fontSize: "clamp(13px, 4.2vw, 20px)" }}>TÚ</span>
+          <span
+            className="mt-0.5 block w-full font-bold uppercase leading-tight opacity-90"
+            style={{ fontSize: "clamp(6.5px, 2vw, 10px)", letterSpacing: "0.02em" }}
+          >
+            Cuello de botella
+          </span>
         </div>
       </div>
 
