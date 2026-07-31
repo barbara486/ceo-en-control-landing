@@ -74,6 +74,13 @@ h1,h2,h3{letter-spacing:-.02em}
 .quiz-option{display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:12px;border:1px solid var(--border-md);background:rgba(255,255,255,.03);color:#fff;font-size:14.5px;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;width:100%;font-family:inherit}
 .quiz-option:hover{background:rgba(31,79,216,.12);border-color:rgba(31,79,216,.5)}
 
+/* Checkout estilo Stripe — deliberadamente claro, contrasta con el resto del flujo (dark) */
+.stripe-checkout{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.stripe-label{display:block;font-size:12.5px;font-weight:600;color:#16181E;margin-bottom:6px}
+.stripe-input{width:100%;padding:11px 14px;font-size:14px;border:1px solid rgba(8,16,34,.14);border-radius:8px;color:#16181E;font-family:inherit;background:#fff}
+.stripe-card-group{border:1px solid rgba(8,16,34,.14);border-radius:8px;overflow:hidden}
+.brand-chip{display:inline-flex;align-items:center;justify-content:center;height:18px;padding:0 5px;border-radius:3px;color:#fff;font-size:8px;font-weight:800;letter-spacing:.02em}
+
 .section-py{padding-top:88px;padding-bottom:88px}
 
 /* Secciones claras — GI recomienda fondo claro para landings/secciones de conversión.

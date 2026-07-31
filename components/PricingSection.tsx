@@ -184,6 +184,7 @@ export function PricingSection() {
   const planPriceUSD = selectedPlan === "pro" ? tier.proUSD : tier.generalUSD;
   const planPriceMXN = selectedPlan === "pro" ? tier.proMXN : tier.generalMXN;
   const planInfo = selectedPlan ? PLAN_FEATURES[selectedPlan] : null;
+  const lastTier = PRICE_TIERS[PRICE_TIERS.length - 1];
 
   return (
     <section id="comprar" className="section-py">
@@ -192,17 +193,19 @@ export function PricingSection() {
         <h2 className="h2 mb-8">Dos tickets. Sin VIP.</h2>
 
         {/* FASE 1 — Pricing */}
-        <div className="grid gap-6 md:grid-cols-2 mb-6">
+        <div className="grid gap-6 md:grid-cols-2 mb-10">
           {(Object.keys(PLAN_FEATURES) as PlanId[]).map((id) => {
             const info = PLAN_FEATURES[id];
             const usd = id === "pro" ? tier.proUSD : tier.generalUSD;
             const mxn = id === "pro" ? tier.proMXN : tier.generalMXN;
+            const fullUsd = id === "pro" ? lastTier.proUSD : lastTier.generalUSD;
             const isSelected = selectedPlan === id && step !== "pricing";
+            const daysLeft = nextTier ? daysUntil(tier.endISO, now) : null;
             return (
-              <button
+              <div
                 key={id}
                 onClick={() => choosePlan(id)}
-                className={`plan-card relative ${isSelected ? "is-selected" : ""}`}
+                className={`plan-card relative cursor-pointer ${isSelected ? "is-selected" : ""}`}
               >
                 {info.featured && (
                   <span className="absolute -top-3 right-6 rounded-full bg-[var(--purple-500)] px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
@@ -213,46 +216,41 @@ export function PricingSection() {
                   <span className="absolute top-4 right-4 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--ice)] text-[13px] font-black text-[#16181E]">✓</span>
                 )}
                 <p className="kicker mb-3">{info.name}</p>
-                <p className="text-[44px] font-extrabold leading-none">
-                  <span className="align-top text-2xl">$</span>{usd}<span className="ml-1 text-base font-bold opacity-60">USD</span>
-                </p>
-                <p className="text-sm text-[var(--muted)] mb-6">${mxn} MXN</p>
-                <ul className="space-y-2 text-sm">
+                {tier.label !== lastTier.label && (
+                  <span className="mb-2 inline-block rounded-full bg-[var(--warning)]/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--warning)]">
+                    Oferta {tier.label}
+                  </span>
+                )}
+                <div className="flex items-baseline gap-3">
+                  {fullUsd !== usd && (
+                    <span className="text-xl font-bold text-[var(--dim)] line-through">${fullUsd}</span>
+                  )}
+                  <p className="text-[44px] font-extrabold leading-none" style={{ color: "var(--warning)" }}>
+                    ${usd}<span className="ml-1 text-base font-bold opacity-70">USD</span>
+                  </p>
+                </div>
+                <p className="text-sm text-[var(--muted)] mb-1">${mxn} MXN</p>
+                {daysLeft !== null && (
+                  <p className="text-xs font-semibold text-[var(--warning)] mb-5">Sube de precio en {daysLeft} día{daysLeft === 1 ? "" : "s"}</p>
+                )}
+                {daysLeft === null && <div className="mb-5" />}
+                <ul className="space-y-2 text-sm mb-6">
                   {info.features.map((f) => (
                     <li key={f} className="flex gap-2 border-t border-[var(--border)] pt-2 first:border-t-0 first:pt-0">
                       <span className="text-[var(--success)] font-bold">✓</span>{f}
                     </li>
                   ))}
                 </ul>
-              </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); choosePlan(id); }}
+                  className={`btn w-full ${info.featured ? "btn-primary" : "btn-outline"}`}
+                >
+                  Elegir {info.name} <span className="arrow">→</span>
+                </button>
+              </div>
             );
           })}
         </div>
-
-        <div className="mb-10 overflow-hidden rounded-2xl border border-[var(--border)]">
-          <div className="grid grid-cols-4 gap-2 bg-white/[.03] px-5 py-3 text-[11px] font-bold uppercase tracking-wider text-[var(--dim)]">
-            <span>Ventana</span><span>Fechas</span><span>General</span><span>PRO</span>
-          </div>
-          {PRICE_TIERS.map((t, i) => (
-            <div
-              key={t.label}
-              className={`grid grid-cols-4 gap-2 border-t border-[var(--border)] px-5 py-3 text-sm ${i === tierIdx ? "bg-[var(--blue-500)]/10" : ""}`}
-            >
-              <span className={i === tierIdx ? "font-bold text-[var(--blue-300)]" : ""}>{t.label}</span>
-              <span className="text-[var(--muted)]">{t.startISO.slice(8, 10)}–{t.endISO === "2026-08-31" ? "30" : String(Number(t.endISO.slice(8, 10)) - 1)} Ago</span>
-              <span>${t.generalUSD} USD</span>
-              <span>${t.proUSD} USD</span>
-            </div>
-          ))}
-        </div>
-
-        {nextTier ? (
-          <p className="text-sm font-bold text-[var(--blue-300)] mb-10">
-            {tier.label} activo — sube a ${nextTier.generalUSD} USD en {daysUntil(tier.endISO, now)} días.
-          </p>
-        ) : (
-          <p className="text-sm font-bold text-[var(--blue-300)] mb-10">Última ventana de precio antes del evento.</p>
-        )}
 
         {/* FASES 2-4 — Formulario / Checkout / Quiz / Confirmación */}
         <div ref={flowRef} />
@@ -264,8 +262,8 @@ export function PricingSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.35 }}
-              className="glass mx-auto rounded-3xl p-8 md:p-10"
-              style={{ maxWidth: step === "done" && !skipped ? 720 : 560 }}
+              className={step === "checkout" ? "stripe-checkout mx-auto" : "glass mx-auto rounded-3xl p-8 md:p-10"}
+              style={{ maxWidth: step === "checkout" ? 900 : step === "done" && !skipped ? 720 : 560 }}
             >
               {step === "form" && (
                 <>
@@ -315,31 +313,73 @@ export function PricingSection() {
               )}
 
               {step === "checkout" && planInfo && (
-                <>
-                  <span className="inline-block rounded-full border border-[var(--warning)]/40 bg-[var(--warning)]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[var(--warning)] mb-4">
-                    Simulación de pago — sin conectar todavía
-                  </span>
-                  <p className="kicker mb-2">Resumen de tu compra</p>
-                  <h3 className="text-2xl font-extrabold mb-4">Ticket {planInfo.name}</h3>
-                  <p className="text-4xl font-extrabold mb-1">${planPriceUSD} <span className="text-base font-bold opacity-60">USD</span></p>
-                  <p className="text-sm text-[var(--muted)] mb-6">${planPriceMXN} MXN · {tier.label}</p>
-                  <ul className="space-y-2 text-sm mb-8">
-                    {planInfo.features.map((f) => (
-                      <li key={f} className="flex gap-2"><span className="text-[var(--success)] font-bold">✓</span>{f}</li>
-                    ))}
-                  </ul>
-                  <motion.button
-                    onClick={goToPayment}
-                    disabled={loading}
-                    animate={{ boxShadow: ["0 0 0 0 rgba(31,79,216,.4)", "0 0 0 14px rgba(31,79,216,0)"] }}
-                    transition={{ duration: 1.6, repeat: Infinity }}
-                    className="btn btn-primary w-full"
-                  >
-                    {loading ? "Procesando…" : "Ir al pago"}
-                  </motion.button>
-                  <p className="mt-3 text-center text-xs text-[var(--dim)]">Pago seguro · MSI disponible (cuando conectemos el cobro real)</p>
-                  <button onClick={() => setStep("form")} className="mt-3 block text-xs text-[var(--muted)] hover:text-white">← Volver</button>
-                </>
+                <div className="grid md:grid-cols-2">
+                  {/* Columna izquierda — resumen del pedido */}
+                  <div className="border-b border-[rgba(8,16,34,.08)] p-8 md:border-b-0 md:border-r">
+                    <button onClick={() => setStep("form")} className="mb-6 text-[#16181E]/50 hover:text-[#16181E]">←</button>
+                    <div className="mb-6 flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full text-white text-xs font-black" style={{ background: "var(--blue-500)" }}>G</span>
+                      <span className="text-sm font-semibold text-[#16181E]">Growth Institute</span>
+                      <span className="ml-2 rounded bg-[var(--warning)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#8a5a00]">Modo simulación</span>
+                    </div>
+                    <p className="text-sm text-[#16181E]/60 mb-1">Pagar Growth Institute</p>
+                    <p className="text-4xl font-extrabold text-[#16181E] mb-6">${planPriceUSD}.00</p>
+
+                    <div className="flex items-start gap-3 border-t border-[rgba(8,16,34,.08)] py-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-lg" style={{ background: "var(--grad-vivid)" }}>🎟️</div>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-[#16181E]">Ticket {planInfo.name}</p>
+                        <p className="text-xs text-[#16181E]/50">CEO en Control · 29–30 Ago 2026</p>
+                      </div>
+                      <p className="text-sm font-semibold text-[#16181E]">${planPriceUSD}.00</p>
+                    </div>
+
+                    <div className="space-y-2 border-t border-[rgba(8,16,34,.08)] pt-4 text-sm">
+                      <div className="flex justify-between text-[#16181E]/60"><span>Subtotal</span><span>${planPriceUSD}.00</span></div>
+                      <div className="flex justify-between text-[#16181E]/60"><span>Referencia MXN</span><span>${planPriceMXN} MXN</span></div>
+                    </div>
+                    <div className="flex justify-between border-t border-[rgba(8,16,34,.08)] mt-3 pt-3 text-sm font-bold text-[#16181E]">
+                      <span>Total</span><span>${planPriceUSD}.00</span>
+                    </div>
+                  </div>
+
+                  {/* Columna derecha — formulario de pago */}
+                  <div className="p-8">
+                    <label className="stripe-label">Email</label>
+                    <input value={email} disabled className="stripe-input mb-4 opacity-70" />
+
+                    <label className="stripe-label">Información de la tarjeta</label>
+                    <div className="stripe-card-group mb-4">
+                      <div className="flex items-center justify-between border-b border-[rgba(8,16,34,.1)] px-3.5 py-3">
+                        <input placeholder="1234 1234 1234 1234" disabled className="w-full bg-transparent text-sm text-[#16181E] placeholder:text-[#16181E]/35 outline-none" />
+                        <div className="flex gap-1 shrink-0">
+                          <span className="brand-chip" style={{ background: "#1A1F71" }}>VISA</span>
+                          <span className="brand-chip" style={{ background: "#EB001B" }}>MC</span>
+                          <span className="brand-chip" style={{ background: "#2E77BC" }}>AMEX</span>
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <input placeholder="MM / AA" disabled className="w-1/2 border-r border-[rgba(8,16,34,.1)] bg-transparent px-3.5 py-3 text-sm text-[#16181E] placeholder:text-[#16181E]/35 outline-none" />
+                        <input placeholder="CVC" disabled className="w-1/2 bg-transparent px-3.5 py-3 text-sm text-[#16181E] placeholder:text-[#16181E]/35 outline-none" />
+                      </div>
+                    </div>
+
+                    <label className="stripe-label">Nombre en la tarjeta</label>
+                    <input value={name} disabled className="stripe-input mb-6 opacity-70" />
+
+                    <motion.button
+                      onClick={goToPayment}
+                      disabled={loading}
+                      animate={{ boxShadow: ["0 0 0 0 rgba(31,79,216,.35)", "0 0 0 10px rgba(31,79,216,0)"] }}
+                      transition={{ duration: 1.6, repeat: Infinity }}
+                      className="btn btn-primary w-full"
+                    >
+                      {loading ? "Procesando…" : `Pagar $${planPriceUSD}.00`}
+                    </motion.button>
+                    <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-[#16181E]/45">🔒 Pago seguro y encriptado</p>
+                    <p className="mt-1 text-center text-[11px] text-[#16181E]/35">Vista previa — todavía no está conectado un cobro real</p>
+                  </div>
+                </div>
               )}
 
               {step === "quiz" && (
